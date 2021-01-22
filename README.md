@@ -1,14 +1,16 @@
 
 ## users テーブル
 
-| Column        | Type   | Options     |
-| ------------- | ------ | ----------- |
-| nickname      | string | null: false |
-| surname       | string | null: false |
-| name          | string | null: false |
-| kana_surname  | string | null: false |
-| kana_name     | string | null: false |
-| birthday      | string | null: false |
+| Column           | Type   | Options     |
+| ---------------- | ------ | ----------- |
+| nickname         | string | null: false |
+| surname          | string | null: false |
+| name             | string | null: false |
+| kana_surname     | string | null: false |
+| kana_name        | string | null: false |
+| birthday         | string | null: false |
+| email            | string | null: false |
+|encrypted_password| string | null: false |
 ### Association
 
 - has_many :items
@@ -16,19 +18,18 @@
 
 ## items テーブル
 
-| Column        | Type      | Options     |
-| ------------- | --------- | ----------- |
-| item_name     | string    | null: false |
-| item_price    | integer   | null: false |
-| item_text     | text      | null: false |
-| item_image    | ActiveStorgeで実装
-| use_id        |references | null: false |
+| Column           | Type      | Options     |
+| ---------------- | --------- | ----------- |
+| item_name        | string    | null: false |
+| item_price       | integer   | null: false |
+| item_text        | text      | null: false |
+| use              |references | null: false |
  ## 以下Active::Hashを使用
-| item_state    | string | null: false |
-| item_categore | string | null: false |
-|delivery_burden| string | null: false |
-| delivery_area | string | null: false |
-| delivery_days | string | null: false |
+| item_state_id    | integer   | null: false |
+| item_categore_id | integer   | null: false |
+|delivery_burden_id| integer   | null: false |
+| delivery_area_id | integer   | null: false |
+| delivery_days_id | integer   | null: false |
 ### Association
 
 - belongs_to :user
@@ -38,8 +39,8 @@
  ### Typeは全てActive::Hashで実装
 | Column   | Type        |  Options    |
 | -------- | ----------- | ------------|
-| user_id  | references  | null: false |
-| item_id  | references  | null: false |
+| user     | references  | null: false |
+| item     | references  | null: false |
 
 ### Association
 - belongs_to user
@@ -55,6 +56,7 @@
 | municipality   | string   |  null: false |
 | address        | string   |  null: false |
 | bulid          | text     |  null: false |
-| phone_number   | integer |  null: false |
+| phone_number   | integer  |  null: false |
+| buyer_area     |references|  null: false |
 
 - belongs_to :item_buy
