@@ -23,7 +23,7 @@
 | item_name        | string    | null: false |
 | item_price       | integer   | null: false |
 | item_text        | text      | null: false |
-| user             |references | null: false |
+| user             |references | null: false,foreign_key: true |
  ## 以下Active::Hashを使用
 | item_state_id    | integer   | null: false |
 | item_categore_id | integer   | null: false |
@@ -39,8 +39,8 @@
  ### Typeは全てActive::Hashで実装
 | Column   | Type        |  Options    |
 | -------- | ----------- | ------------|
-| user     | references  | null: false |
-| item     | references  | null: false |
+| user     | references  | null: false ,foreign_key: true |
+| item     | references  | null: false ,foreign_key: true |
 
 ### Association
 - belongs_to user
@@ -49,14 +49,14 @@
 
 # buyer_areas テーブル
  ### Active::Hashで実装
-| Column         |Type      |  Options     |
-| -------------- | -------- | ------------ |
-| postal_codo    | integer  |  null: false |
-| prefectures    | string   |  null: false |
-| municipality   | string   |  null: false |
-| address        | string   |  null: false |
-| bulid          | text     |  null: false |
-| phone_number   | integer  |  null: false |
-| buyer_area     |references|  null: false |
+| Column          |Type      |  Options     |
+| --------------- | -------- | ------------ |
+| postal_codo     | string   |  null: false |
+|deliverry_area_id| integer  |  null: false |
+| municipality    | string   |  null: false |
+| address         | string   |  null: false |
+| bulid           | string   |              |
+| phone_number    | string   |  null: false |
+| buyer_area      |references|  null: false,foreign_key: true |
 
-- belongs_to :item_buy
+- belongs_to :item_buys
