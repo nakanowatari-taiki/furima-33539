@@ -57,6 +57,6 @@
 | address         | string   |  null: false |
 | bulid           | string   |              |
 | phone_number    | string   |  null: false |
-| buyer_area      |references|  null: false,foreign_key: true |
+| item_area      |references|  null: false,foreign_key: true |
 
 - belongs_to :item_buy
