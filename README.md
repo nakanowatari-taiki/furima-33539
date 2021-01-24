@@ -20,13 +20,13 @@
 
 | Column           | Type      | Options     |
 | ---------------- | --------- | ----------- |
-| item_name        | string    | null: false |
-| item_price       | integer   | null: false |
-| item_text        | text      | null: false |
+| product_name        | string    | null: false |
+| price  　　　     | integer   | null: false |
+| text　　　        | text      | null: false |
 | user             |references | null: false,foreign_key: true |
  ## 以下Active::Hashを使用
-| item_state_id    | integer   | null: false |
-| item_categore_id | integer   | null: false |
+| state_id         | integer   | null: false |
+| categore_id      | integer   | null: false |
 |delivery_burden_id| integer   | null: false |
 | delivery_area_id | integer   | null: false |
 | delivery_days_id | integer   | null: false |
@@ -36,7 +36,7 @@
 - has_one    :item_buy
 
 ## item_buys テーブル
- ### Typeは全てActive::Hashで実装
+ 
 | Column   | Type        |  Options    |
 | -------- | ----------- | ------------|
 | user     | references  | null: false ,foreign_key: true |
