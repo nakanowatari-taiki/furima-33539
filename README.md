@@ -14,7 +14,7 @@
 ### Association
 
 - has_many :items
-- has_many :item_buy
+- has_many :item_buys
 
 ## items テーブル
 
@@ -51,7 +51,7 @@
  ### Active::Hashで実装
 | Column          |Type      |  Options     |
 | --------------- | -------- | ------------ |
-| postal_codo     | string   |  null: false |
+| postal_code     | string   |  null: false |
 |deliverry_area_id| integer  |  null: false |
 | municipality    | string   |  null: false |
 | address         | string   |  null: false |
@@ -59,4 +59,4 @@
 | phone_number    | string   |  null: false |
 | buyer_area      |references|  null: false,foreign_key: true |
 
-- belongs_to :item_buys
+- belongs_to :item_buy
