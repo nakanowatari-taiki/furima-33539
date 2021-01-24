@@ -8,7 +8,7 @@
 | name             | string | null: false |
 | kana_surname     | string | null: false |
 | kana_name        | string | null: false |
-| birthday         | string | null: false |
+| birthday         | date   | null: false |
 | email            | string | null: false |
 |encrypted_password| string | null: false |
 ### Association
@@ -23,7 +23,7 @@
 | item_name        | string    | null: false |
 | item_price       | integer   | null: false |
 | item_text        | text      | null: false |
-| use              |references | null: false |
+| user             |references | null: false |
  ## 以下Active::Hashを使用
 | item_state_id    | integer   | null: false |
 | item_categore_id | integer   | null: false |
