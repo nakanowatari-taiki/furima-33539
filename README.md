@@ -48,7 +48,7 @@
 - has_one    :buyer_area
 
 # buyer_areas テーブル
- ### Active::Hashで実装
+ 
 | Column          |Type      |  Options     |
 | --------------- | -------- | ------------ |
 | postal_code     | string   |  null: false |
@@ -57,6 +57,6 @@
 | address         | string   |  null: false |
 | bulid           | string   |              |
 | phone_number    | string   |  null: false |
-| item_area      |references|  null: false,foreign_key: true |
+| item_buy       |references|  null: false,foreign_key: true |
 
 - belongs_to :item_buy
