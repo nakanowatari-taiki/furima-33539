@@ -17,11 +17,10 @@ RSpec.describe User, type: :model do
     end
     it "重複したemailが存在する場合は登録できない" do
       @user.save
-      another_user = FactoryBot.build(:user)
+      another_user = FactoryBot.build(:user, email: @user.email)
       another_user.email = @user.email
       another_user.valid?
-      
-      expect(another_user.errors.full_messages).to include("Surname is invalid", "Name is invalid")
+      expect(another_user.errors.full_messages).to include("Email has already been taken")
     end
     it "emailに@を含む必要があること" do
       @user.email = "aaaaaa"
@@ -60,29 +59,28 @@ RSpec.describe User, type: :model do
       @user.password = "555555"
       @user.password_confirmation = "555555"
       @user.valid?
-      expect(@user.errors.full_messages).to include("Surname is invalid", "Name is invalid", "Password is invalid")
+      expect(@user.errors.full_messages).to include("Password is invalid")
     end
 
     it "passwordは全角では登録できない" do
       @user.password = "おおおおa1"
       @user.password_confirmation = "おおおおa1"
       @user.valid?
-      expect(@user.errors.full_messages).to include("Surname is invalid", "Name is invalid", "Password is invalid")
+      expect(@user.errors.full_messages).to include("Password is invalid")
     end
 
 
     it "ユーザー本名は、名字が必須であること" do
       @user.surname = ""
       @user.valid?
-      expect(@user.errors.full_messages).to include("Surname can't be blank", "Surname is invalid", "Name is invalid")
+      expect(@user.errors.full_messages).to include("Surname can't be blank", "Surname is invalid")
     end
     it "ユーザー本名は名前が必須であること"do
       @user.name = ""
       @user.valid?
-      expect(@user.errors.full_messages).to include("Surname is invalid", "Name can't be blank", "Name is invalid")
+      expect(@user.errors.full_messages).to include("Name can't be blank", "Name is invalid")
     end
     it "ユーザー本名はsurnameが、全角（漢字、ひらがな、カタカナ）での入力が必須であること"do
-      @user.name = "田中たなかタナカ"
       @user.surname = "111111"
       @user.valid?
       expect(@user.errors.full_messages).to include("Surname is invalid")
@@ -90,46 +88,36 @@ RSpec.describe User, type: :model do
 
     it "ユーザー本名はnameが、全角（漢字、ひらがな、カタカナ）での入力が必須であること"do
       @user.name = "111111"
-      @user.surname = "田中たなかタナカ"
       @user.valid?
       expect(@user.errors.full_messages).to include("Name is invalid")
     end
     it "ユーザー本名のフリガナはkana_nameが必須であること"do
       @user.kana_name = ""
-      @user.kana_surname = "タナカ"
       @user.valid?
-      expect(@user.errors.full_messages).to include("Surname is invalid","Name is invalid","Kana name can't be blank","Kana name is invalid")
+      expect(@user.errors.full_messages).to include("Kana name can't be blank", "Kana name is invalid")
     end
     it "ユーザー本名のフリガナはkana_surnameが必須であること"do
-      @user.kana_name = "タナカ"
       @user.kana_surname = ""
       @user.valid?
-      expect(@user.errors.full_messages).to include("Surname is invalid","Name is invalid","Kana surname can't be blank","Kana surname is invalid")
+      expect(@user.errors.full_messages).to include("Kana surname can't be blank", "Kana surname is invalid")
     end
 
-
-
-
-
-
     it "ユーザー本名kana_nameはフリガナ全角（カタカナ）以外では登録できないこと"do
-       @user.name = "田中"
-       @user.surname ="太郎"
-       @user.kana_name = "タナカ"
-       @user.kana_surname = "田中"
+       @user.kana_name = "たなか"
+       @user.kana_name = "123"
+       @user.kana_name = "田中"
        @user.valid?
-       expect(@user.errors.full_messages).to include("Kana surname is invalid")
+       expect(@user.errors.full_messages).to include("Kana name is invalid")
     end
 
 
 
     it "ユーザー本名kana_surnameフリガナは全角（カタカナ）以外では登録できないこと"do
-       @user.name = "田中"
-       @user.surname ="太郎"
-       @user.kana_name = "田中"
-       @user.kana_surname = "タナカ"
+       @user.kana_surname = "たなか"
+       @user.kana_surname = "123"
+       @user.kana_surname = "田中"
        @user.valid?
-       expect(@user.errors.full_messages).to include("Kana name is invalid")
+       expect(@user.errors.full_messages).to include("Kana surname is invalid")
     end
 
     it "ユーザーの本名は漢字、ひらがな、カタカナ以外は登録できないこと" do
@@ -138,6 +126,7 @@ RSpec.describe User, type: :model do
        @user.valid?
        expect(@user.errors.full_messages).to include("Surname is invalid", "Name is invalid")
     end
+
     it "生年月日が必須であること" do
       @user.birthday = ""
       @user.valid?
