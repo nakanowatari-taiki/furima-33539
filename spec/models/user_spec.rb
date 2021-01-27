@@ -153,6 +153,10 @@ RSpec.describe User, type: :model do
       @user.kana_surname = "タロウ"
       expect(@user).to be_valid
     end
+    it "emailは@があれば登録できる"do
+      @user.email = "hoge@co.jp"
+      expect(@user).to be_valid
+    end
   end
   end
 end
