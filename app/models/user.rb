@@ -17,5 +17,5 @@ class User < ApplicationRecord
   end
   validates :birthday
   end     
-  validates :password, length: { minimum: 6}, format:{with: /(?=.*?[a-z])(?=.*?\d)[a-z\d]/}
+  validates :password, length: { minimum: 6},format:{with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]\z/}
 end
