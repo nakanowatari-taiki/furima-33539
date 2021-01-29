@@ -103,26 +103,42 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include("Kana surname can't be blank", "Kana surname is invalid")
     end
 
-    it "ユーザー本名kana_nameはフリガナ全角（カタカナ）以外では登録できないこと"do
+    it "ユーザー本名kana_nameはひらがなでは登録できないこと"do
        @user.kana_name = "たなか"
-       @user.kana_name = "123"
-       @user.kana_name = "田中"
        @user.valid?
        expect(@user.errors.full_messages).to include("Kana name is invalid")
     end
-    it "ユーザー本名kana_surnameフリガナは全角（カタカナ）以外では登録できないこと"do
+    it "ユーザー本名kana_nameは半角だと登録できない"do
+      @user.kana_name = "123"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Kana name is invalid")
+    end
+
+    it "ユーザー本名kana_nameは漢字だと登録できない"do
+      @user.kana_name = "田中"
+      @user.valid?
+      expect(@user.errors.full_messages).to include("Kana name is invalid")
+    end
+
+    it "ユーザー本名kana_surnameひらがなでは登録できないこと"do
        @user.kana_surname = "たなか"
+       @user.valid?
+       expect(@user.errors.full_messages).to include("Kana surname is invalid")
+    end
+
+    it "ユーザー本名kana_surname半角では登録できないこと"do
        @user.kana_surname = "123"
+       @user.valid?
+       expect(@user.errors.full_messages).to include("Kana surname is invalid")
+    end
+
+    it "ユーザー本名kana_surnameは漢字では登録できないこと"do
        @user.kana_surname = "田中"
        @user.valid?
        expect(@user.errors.full_messages).to include("Kana surname is invalid")
     end
-    it "ユーザーの本名は漢字、ひらがな、カタカナ以外は登録できないこと" do
-       @user.name = "12345"
-       @user.surname = "12345"
-       @user.valid?
-       expect(@user.errors.full_messages).to include("Surname is invalid", "Name is invalid")
-    end
+  
+
     it "生年月日が必須であること" do
       @user.birthday = ""
       @user.valid?
@@ -143,14 +159,22 @@ RSpec.describe User, type: :model do
       @user.password_confirmation = "hoge12"
       expect(@user).to be_valid
     end
-    it "nameとsurnameは全角（漢字、ひらがな、カタカナ）で登録できる"do
+    it "nameは全角（漢字、ひらがな、カタカナ）で登録できる"do
       @user.name = "田たタ"
+      expect(@user).to be_valid
+    end
+    it "surnameは全角（漢字、ひらがな、カタカナ）で登録できる"do
       @user.surname = "田たタ"
       expect(@user).to be_valid
     end
-    it "kana_nameとkana_surnameは全角のカタカナで登録できる"do
-      @user.kana_name = "タナカ"
+
+    it "kana_surnameは全角のカタカナで登録できる"do
       @user.kana_surname = "タロウ"
+      expect(@user).to be_valid
+    end
+
+    it "kana_nameは全角のカタカナで登録できる"do
+      @user.kana_name = "タナカ"
       expect(@user).to be_valid
     end
     it "emailは@があれば登録できる"do
