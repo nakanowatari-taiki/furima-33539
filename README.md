@@ -20,9 +20,9 @@
 
 | Column           | Type      | Options     |
 | ---------------- | --------- | ----------- |
-| product_name        | string    | null: false |
-| price  　　　     | integer   | null: false |
-| text　　　        | text      | null: false |
+| product_name     | string    | null: false |
+| price            | integer   | null: false |
+| text             | text      | null: false |
 | user             |references | null: false,foreign_key: true |
  ## 以下Active::Hashを使用
 | state_id         | integer   | null: false |
