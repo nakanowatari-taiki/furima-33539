@@ -1,11 +1,7 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new]
+  before_action :authenticate_user!, only: [:new, :ceate]
   def new
-    if authenticate_user! == current_user
       @item = Item.new
-    else
-      redirect_to user_session_path
-    end
   end
 
   def create
