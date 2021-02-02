@@ -10,7 +10,7 @@ class Item < ApplicationRecord
   with_options presence: true do
    validates :image
    validates :product_name
-   validates :price,numericality: {greater_than_or_equal_to:300,less_than_or_equal_to: 99999999}
+   validates :price, numericality: {greater_than_or_equal_to:300,less_than_or_equal_to: 99999999},format: {with:  /\A[0-9]+\z/}
    validates :text
    validates :categore_id, numericality: { other_than: 1}
    validates :delivery_area_id, numericality: { other_than: 1}
