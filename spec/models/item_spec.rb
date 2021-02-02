@@ -71,6 +71,31 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Price is not a number")
       end
+      it "state_idは１以外出ないと登録できない"do
+      @item.state_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("State must be other than 1")
+      end
+      it "categore_idは１以外出ないと登録できない"do
+      @item.categore_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Categore must be other than 1")
+      end
+      it "delivery_burden_idは１以外出ないと登録できない"do
+      @item.delivery_burden_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Delivery burden must be other than 1")
+      end
+      it "delivery_area_idは１以外出ないと登録できない"do
+      @item.delivery_area_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Delivery area must be other than 1")
+      end
+      it "delivery_days_idは１以外出ないと登録できない"do
+      @item.delivery_days_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include("Delivery days must be other than 1")
+      end
     end
     context '商品出品がうまくいく時' do
       it "product_name,price,text,state_id,categore_id,deliver_burden_id,delivery_area_id,delivery_days_id,imageがあると商品を出品できる"do
