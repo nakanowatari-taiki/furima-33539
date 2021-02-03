@@ -20,4 +20,7 @@ class Item < ApplicationRecord
    validates :state_id
    end
   end
+  belongs_to :user
 end
+
+
