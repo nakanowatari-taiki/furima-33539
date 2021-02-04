@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :ceate, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
   def index
       @items = Item.order("created_at DESC")
   end
@@ -36,6 +36,14 @@ class ItemsController < ApplicationController
    else
      render :edit
    end
+  end
+
+  def destroy
+    if current_user.id == @item.user_id
+    @item.destroy
+    redirect_to("/")
+    end
+   
   end
 
 
