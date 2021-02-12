@@ -6,7 +6,6 @@ FactoryBot.define do
     address { '青山1-1-1' }
     bulid { '柳ビル１０３' }
     phone_number { '09012345678' }
-    token { ENV["PAYJP_SECRET_KEY"] }
-    
+    token { "pk_test_a05c627a16decf2ecfee6cef" }
   end
 end
