@@ -1,0 +1,2 @@
+module BuyerAreasHelper
+end
