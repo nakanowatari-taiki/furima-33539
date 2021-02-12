@@ -22,7 +22,7 @@ class ItemsController < ApplicationController
   end
   
   def edit
-    if current_user.id == @item.user_id && @item.item_buy.blank? 
+    if current_user.id != @item.user_id || @item.item_buy.present? 
     render template: "items/edit"
     else
       redirect_to root_path
@@ -30,7 +30,7 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if current_user.id == @item.user_id && @item.item_buy.blank? 
+    if current_user.id != @item.user_id || @item.item_buy.present? 
       @item.update(item_params)
       redirect_to root_path
    else
@@ -39,7 +39,7 @@ class ItemsController < ApplicationController
   end
 
   def destroy
-    if current_user.id == @item.user_id && @item.item_buy.blank? 
+    if current_user.id != @item.user_id || @item.item_buy.present? 
     @item.destroy
     redirect_to("/")
     else

@@ -7,7 +7,6 @@ FactoryBot.define do
     bulid { '柳ビル１０３' }
     phone_number { '09012345678' }
     token { "pk_test_a05c627a16decf2ecfee6cef" }
-    user_id {'hoge'}
-    item_id {'hoge'}
+    
   end
 end

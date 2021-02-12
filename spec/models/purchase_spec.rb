@@ -1,8 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Purchase, type: :model do
-  before do
-    @purchase = FactoryBot.build(:purchase)
+  before do  
+    # アイテムの情報を作る
+    item = FactoryBot.create(:item)
+    # ユーザーの情報を作る
+    user = FactoryBot.create(:user)
+    @purchase = FactoryBot.build(:purchase, item_id: item.id,user_id: user.id)
+    sleep(1)
   end
   describe '商品購入'do
   context '商品購入がうまくいかないとき' do
@@ -66,10 +71,16 @@ RSpec.describe Purchase, type: :model do
    @purchase.valid?
    expect(@purchase.errors.full_messages).to include("Item can't be blank")
   end
+  it 'phone_numberは英数混合では登録できない'do
+    @purchase.phone_number = "1a1a1a1a1a1"
+    @purchase.valid?
+    expect(@purchase.errors.full_messages).to include("Phone number is invalid")
+  end
   
  end
 
  context '商品購入がうまくいく時' do
+ 
   it 'postal_code,delivery_area_id,municipality,address,phone_number,user_id,item_id,tokenがあれば購入できる'do
    expect(@purchase).to be_valid
   end

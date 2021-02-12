@@ -1,11 +1,9 @@
 class BuyerAreasController < ApplicationController
-  before_action :authenticate_user!, only: [:index]
+  before_action :authenticate_user!, only: [:index, :create]
   before_action :set_item_buy,only: [:index, :create]
+  before_action :item_conditions,only: [:index, :create]
   def index
       @purchase = Purchase.new
-    if (current_user.id == @item.user_id) || (current_user.id && @item.item_buy.present?) 
-      redirect_to root_path
-    end
   end
   def create
     @purchase = Purchase.new(purchase_params)
@@ -34,6 +32,11 @@ class BuyerAreasController < ApplicationController
   def set_item_buy
     @item = Item.find(params[:item_id])
   end
- 
+
+  def item_conditions
+    if (current_user.id == @item.user_id) ||  @item.item_buy.present?
+    redirect_to root_path
+  end
+end
 
 end
