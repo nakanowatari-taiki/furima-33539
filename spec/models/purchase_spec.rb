@@ -82,6 +82,11 @@ RSpec.describe Purchase, type: :model do
     @purchase.phone_number = "09009090909"
     expect(@purchase).to be_valid
   end
+
+  it "bulidが空でも保存できる"do
+    @purchase.bulid = ""
+    expect(@purchase).to be_valid
+  end
  end 
 end
   

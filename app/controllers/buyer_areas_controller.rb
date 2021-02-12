@@ -3,9 +3,7 @@ class BuyerAreasController < ApplicationController
   before_action :set_item_buy,only: [:index, :create]
   def index
       @purchase = Purchase.new
-    if current_user.id == @item.user_id
-      redirect_to root_path
-    elsif  current_user.id && @item.item_buy.present? 
+    if (current_user.id == @item.user_id) || (current_user.id && @item.item_buy.present?) 
       redirect_to root_path
     end
   end
