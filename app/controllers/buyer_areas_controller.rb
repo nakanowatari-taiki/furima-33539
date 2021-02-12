@@ -12,8 +12,8 @@ class BuyerAreasController < ApplicationController
     @item = Item.find(params[:item_id])
     @purchase = Purchase.new(purchase_params)
     if @purchase.valid?
-       pay_item
        @purchase.save
+       pay_item
        redirect_to root_path
       else
         render action: :index
@@ -22,10 +22,10 @@ class BuyerAreasController < ApplicationController
 
   private
   def purchase_params
-    params.require(:purchase).permit(:phone_number,:postal_code,:delivery_area_id,:municipality,:address,:bulid,:user_id,:item_id,:item_buy_id).merge(token: params[:token],item_id: params[:item_id],user_id: current_user.id)
+    params.permit(:phone_number,:postal_code,:delivery_area_id,:municipality,:address,:bulid,:user_id,:item_id,:item_buy_id).merge(token: params[:token],item_id: params[:item_id],user_id: current_user.id)
   end
   def pay_item
-    Payjp.api_key = ENV["PAYJP_SECRET_KEY"] 
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]  
     Payjp::Charge.create(
       amount: @item.price,
       card: purchase_params[:token],   
