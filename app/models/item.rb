@@ -21,6 +21,7 @@ class Item < ApplicationRecord
    end
   end
   belongs_to :user
+  has_one :item_buy
 end
 
 
