@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :ceate, :edit, :update]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
+  before_action :item_edit, only: [:edit]
   def index
       @items = Item.order("created_at DESC")
   end
@@ -22,7 +23,7 @@ class ItemsController < ApplicationController
   end
   
   def edit
-    if current_user.id == @item.user_id || @item.item_buy.present? 
+    if current_user.id != @item.user_id || @item.item_buy.blank? 
     render template: "items/edit"
     else
       redirect_to root_path
@@ -30,18 +31,16 @@ class ItemsController < ApplicationController
   end
 
   def update
-    if current_user.id == @item.user_id || @item.item_buy.present? 
-      @item.update(item_params)
-      redirect_to root_path
+    if @item.update(item_params)
+       redirect_to root_path
    else
      render :edit
    end
   end
 
   def destroy
-    if current_user.id == @item.user_id || @item.item_buy.present? 
-    @item.destroy
-    redirect_to("/")
+    if @item.destroy
+       redirect_to("/")
     else
       render  :index
     end
@@ -56,5 +55,11 @@ class ItemsController < ApplicationController
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def item_edit
+    if (current_user.id != @item.user_id) ||  @item.item_buy.present?
+    redirect_to root_path
+    end
   end
 end
