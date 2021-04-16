@@ -159,6 +159,10 @@ RSpec.describe User, type: :model do
       @user.password_confirmation = "hoge12"
       expect(@user).to be_valid
     end
+    it "emailは@があれば登録できる"do
+      @user.email = "hoge@co.jp"
+      expect(@user).to be_valid
+    end
     it "nameは全角（漢字、ひらがな、カタカナ）で登録できる"do
       @user.name = "田たタ"
       expect(@user).to be_valid
@@ -177,10 +181,7 @@ RSpec.describe User, type: :model do
       @user.kana_name = "タナカ"
       expect(@user).to be_valid
     end
-    it "emailは@があれば登録できる"do
-      @user.email = "hoge@co.jp"
-      expect(@user).to be_valid
-    end
+    
   end
   end
 end
